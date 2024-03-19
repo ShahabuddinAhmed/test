@@ -1,9 +1,9 @@
 {
-  "name": "user-audit-log-api",
+  "name": "test-api",
   "version": "1.0.0",
   "author": "Shahabuddin Ahmed",
   "license": "MIT",
-  "description": "User Audit Log API",
+  "description": "User Test API",
   "main": "app.ts",
   "scripts": {
     "dev": "nodemon",
