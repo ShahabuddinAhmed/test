@@ -3,6 +3,7 @@ import bodyParser from "body-parser";
 import morgan from "morgan";
 
 import { initializeDBConnection } from "./infra/db";
+import { newRedisClient } from "./infra/redis-client";
 
 import { UserModel } from "./model/user";
 
@@ -31,12 +32,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
     // initializing db connection
     await initializeDBConnection(config.MONGO.MONGO_HOST, config.MONGO.MONGO_DB);
+    const redisClient = await newRedisClient();
 
     // initializing repos
     const userRepo = await newUserRepo(UserModel);
 
     // initializing services
-    const userService = await newUserService(userRepo);
+    const userService = await newUserService(userRepo, redisClient);
 
     // initializing controllers
     const userController = await newUserController(userService, logger);

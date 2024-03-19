@@ -10,6 +10,8 @@ export class UserSerializer {
     }
 
     public static async serializeUsers(users: UserInterface[]) {
-        return users.map(user => UserSerializer.serializeUser(user));
+        return await Promise.all(
+            users.map(async user => await UserSerializer.serializeUser(user))
+        );
     }
 }

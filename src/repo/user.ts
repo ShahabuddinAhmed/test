@@ -6,7 +6,7 @@ export interface UserRepoInterface {
     create(user: UserInterface): Promise<UserInterface>;
     getByEmail(email: string): Promise<UserInterface | null>;
     getUserList(): Promise<UserInterface[]>;
-    updateByEmail(user: UserInterface): any;
+    updateByEmail(email: string, name: string): any;
     deleteByEmail(email: string): Promise<mongodb.DeleteResult>;
 }
 
@@ -27,10 +27,8 @@ export class UserRepo implements UserRepoInterface {
         return this.userModel.find();
     }
 
-    public async updateByEmail(
-        user: UserInterface
-    ) {
-        return this.userModel.updateOne({ email: user.email }, user);
+    public async updateByEmail(email: string, name: string) {
+        return this.userModel.updateOne({ email }, { name });
     }
 
     public async deleteByEmail(email: string): Promise<mongodb.DeleteResult> {
